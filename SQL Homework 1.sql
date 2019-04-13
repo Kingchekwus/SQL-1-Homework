@@ -15,7 +15,7 @@ FROM actor;
 
 SELECT actor_id, first_name, last_name
 FROM actor
-WHERE first_name = "Joe";
+WHERE first_name = "Bette";
 
 -- 2b.  Find all actors whose last name contain the letters `GEN`
 
@@ -57,13 +57,13 @@ DROP COLUMN middle_name;
 
 -- * 4a. List the last names of actors, as well as how many actors have that last name.
 
-SELECT last_name, COUNT(*) AS 'Number of Actors' 
+SELECT last_name, COUNT(*) AS 'Number_of_Actors' 
 FROM actor GROUP BY last_name;
 
 -- 4b. List last names of actors and the number of actors who have that last name, 
 --     but only for names that are shared by at least two actors
 
-SELECT last_name, COUNT(*) AS 'Number of Actors' 
+SELECT last_name, COUNT(*) AS 'Number_of_Actors' 
 FROM actor GROUP BY last_name HAVING count(*) >=2;
 
 -- 4c. Oh, no! The actor `HARPO WILLIAMS` was accidentally entered in the `actor` 
@@ -72,7 +72,7 @@ FROM actor GROUP BY last_name HAVING count(*) >=2;
 
 UPDATE actor 
 SET first_name = 'HARPO'
-WHERE First_name = "Groucho" AND last_name = "Williams";
+WHERE first_name = "Groucho" AND last_name = "Williams";
 
 -- 4d. Perhaps we were too hasty in changing `GROUCHO` to `HARPO`. 
 --     It turns out that `GROUCHO` was the correct name after all!
@@ -110,10 +110,10 @@ staff.staff_id = payment.staff_id AND payment_date LIKE '2005-08%';
 -- 6c. List each film and the number of actors who are listed for that film. 
 --     Use tables `film_actor` and `film`. Use inner join.
 
-SELECT f.title AS 'Film Title', COUNT(fa.actor_id) AS `Number of Actors`
-FROM film_actor fa
+SELECT f.title AS 'Film Title', COUNT(a.actor_id) AS `Number_of_Actors`
+FROM film_actor a
 INNER JOIN film f 
-ON fa.film_id= f.film_id
+ON a.film_id= f.film_id
 GROUP BY f.title;
 
 -- 6d. How many copies of the film `Hunchback Impossible` exist in the inventory system?
@@ -170,10 +170,10 @@ WHERE title = 'Alone Trip'
 --     will need the names and email addresses of all Canadian customers. 
 --     Use joins to retrieve this information.
 
-SELECT cus.first_name, cus.last_name, cus.email 
-FROM customer cus
+SELECT c.first_name, c.last_name, c.email 
+FROM customer c
 JOIN address a 
-ON (cus.address_id = a.address_id)
+ON (c.address_id = a.address_id)
 JOIN city cty
 ON (cty.city_id = a.city_id)
 JOIN country
